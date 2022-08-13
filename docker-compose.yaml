@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  app:
+    container_name: app
+    image: app/app
+    ports:
+      - 8080:8080
+    restart: always
+    volumes:
+      - ./app:/usr/app
+    networks:
+      - app-network
+    command: npm run dev
+    depends_on:
+      - queue_rabbitmq
+    environment:
+      - AMQP_USER=rabbitmq
+      - AMQP_PASSWORD=rabbitmq
+      - AMQP_QUEUE=queue
+      - AMQP=amqp://rabbitmq
+      - AMQP_EXCHANGE=ex_queue
+      - AMQP_EVENT_GERENCIADOR_ROUTING_KEY=rk_queue
+      - AMQP_EXCHANGE_TTL=ex_queue_ttl
+      - AMQP_EXCHANGE_DLX=ex_queue_dlx
+      - AMQP_QUEUE_RETRY=queue_retry
+      - AMQP_TTL=3000
+      - AMQP_IFOOD_TTL=3000
+      - AMQP_RETRY=4
+  queue_rabbitmq:
+    container_name: queue_rabbitmq
+    image: app/queue
+    ports: 
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
