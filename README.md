@@ -10,7 +10,7 @@
 ```bash
 cd queue \
 && docker build -t app/queue . \
-&& docker run --name queue_rabbitmq -it -d -p 5673:5672 -p 15672:15672 app/queue \
+&& docker run --name queue_rabbitmq -it -d -p 5672:5672 -p 15672:15672 app/queue \
 && cd .. \
 && cd app \
 && npm install \
