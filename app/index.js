@@ -12,7 +12,7 @@ app.listen(8080, () => {
     console.log("Starting Service...");
 });
 
-setTimeout(questionCLI, 1500);
+setTimeout(questionCLI, 4000);
 
 AMQPService.connect(() => {
     AMQPService.startPublisher();
