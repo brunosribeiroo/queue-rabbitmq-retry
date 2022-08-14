@@ -12,7 +12,10 @@ app.listen(8080, () => {
     console.log("Starting Service...");
 });
 
-setTimeout(questionCLI, 4000);
+setTimeout(() => {
+    console.log('Visit http://localhost:15672 to follow messages on RabbitMQ');
+    questionCLI();
+}, 4000);
 
 AMQPService.connect(() => {
     AMQPService.startPublisher();
